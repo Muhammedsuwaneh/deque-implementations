@@ -1,31 +1,85 @@
+////////////////////////////////////////////////////////////////////////////////////////////
+/*
+  Algorithms and Data Structures
+  Expression Evaluations
+  Contributors:
+  Muhammed Suwaneh - 152120181098
+  Department of Computer Engineering
+  Eskisehir Osmangazi University, December 2020
+  Eskisehir, Turkey
+ */
+ ////////////////////////////////////////////////////////////////////////////////////////////
+
 #include "Deque.h"
 
 ///------------------------------------------------------
 /// Default constructor
 /// 
 Deque::Deque() {
-	// Fill this in
+	this->head = this->tail = NULL;
+	this->noOfItems = 0;
 } //end-Deque
 
 ///------------------------------------------------------
 /// Destructor
 /// 
 Deque::~Deque() {
-	// Fill this in
+
+	while (this->head) {
+
+		DequeNode* node = this->head;
+		this->head = this->head->next;
+		delete node;
+	}
 } //end-~Deque
 
 ///------------------------------------------------------
 /// Adds a new item to the front of the Deque
 /// 
 void Deque::AddFront(int item) {
-	// Fill this in
+	
+	DequeNode*node = new DequeNode(item);
+
+	if (this->head == NULL) {
+
+		this->head = node;
+		this->noOfItems++;
+	}
+
+	else if (this->head->next == NULL) {
+
+		this->tail = this->head;
+		this->head = node;
+		this->noOfItems++;
+	}
+
 } //end-AddFront
 
 ///------------------------------------------------------
 /// Adds a new item to the end of the Deque
 /// 
 void Deque::AddRear(int item) {
-	// Fill this in
+
+	DequeNode* node, *curr;
+
+	node = new DequeNode(item);
+
+	curr = this->head;
+
+	if (this->head == NULL) {
+
+		this->head = node;
+		this->noOfItems++;
+	}
+
+	else {
+
+		while (curr->next != NULL) { curr = curr->next; }
+
+		curr->next = node;
+
+		this->noOfItems++;
+	}
 } //end-AddRear
 
 ///------------------------------------------------------
@@ -51,8 +105,13 @@ int Deque::RemoveRear() {
 /// If the Deque is empty, throw an exception
 /// 
 int Deque::Front() {
-	// Fill this in
-	return 0;
+	
+	DequeNode* curr = head;
+
+	if (curr == NULL) { return NULL; }
+
+	else return curr->item;
+	
 } //end-Front
 
 ///------------------------------------------------------
@@ -60,6 +119,21 @@ int Deque::Front() {
 /// If the Deque is empty, throw an exception
 /// 
 int Deque::Rear() {
-	// Fill this in
-	return 0;
+
+	DequeNode* curr;
+
+	curr = head;
+	
+	if (curr->next == NULL) {
+
+		return curr->item;
+	}
+
+	else {
+
+		while (curr->next != NULL) { curr = curr->next; }
+
+		return curr->item;
+	}
+	
 } //end-Rear

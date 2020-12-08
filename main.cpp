@@ -7,7 +7,6 @@ using namespace std;
 int Test1();
 int Test2();
 
-
 ///--------------------------------------------------------------------
 /// main function
 ///
@@ -15,7 +14,7 @@ int main() {
 	int grade = 0;
 
 	grade += Test1();
-	grade += Test2();
+	//grade += Test2();
 
 	printf("Your grade is: %d\n", grade);
 

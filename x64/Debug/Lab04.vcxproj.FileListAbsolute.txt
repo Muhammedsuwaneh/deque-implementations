@@ -1,0 +1,2 @@
+C:\Users\PROJECT VENUS\Documents\C++ Data Structures and Algorithms\Assigments\Deque\Lab04\x64\Debug\Lab04.exe
+C:\Users\PROJECT VENUS\Documents\C++ Data Structures and Algorithms\Assigments\Deque\Lab04\x64\Debug\Lab04.pdb
