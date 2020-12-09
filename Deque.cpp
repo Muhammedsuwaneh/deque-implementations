@@ -9,7 +9,7 @@
   Eskisehir, Turkey
  */
  ////////////////////////////////////////////////////////////////////////////////////////////
-
+#include <iostream>
 #include "Deque.h"
 
 ///------------------------------------------------------
@@ -40,16 +40,19 @@ void Deque::AddFront(int item) {
 	
 	DequeNode*node = new DequeNode(item);
 
-	if (this->head == NULL) {
+	if (node == NULL) throw std::exception("Deque::AddFront(): Overflow error");
 
-		this->head = node;
+	else if (this->head == NULL) {
+
+		this->head = this->tail = node;
 		this->noOfItems++;
 	}
 
-	else if (this->head->next == NULL) {
+	else {
 
-		this->tail = this->head;
-		this->head = node;
+		head->prev = node;
+		node->next = head;
+		head = node;
 		this->noOfItems++;
 	}
 
@@ -60,11 +63,9 @@ void Deque::AddFront(int item) {
 /// 
 void Deque::AddRear(int item) {
 
-	DequeNode* node, *curr;
+	DequeNode* node = new DequeNode(item);
 
-	node = new DequeNode(item);
-
-	curr = this->head;
+	if (node == NULL) throw std::exception("Deque::AddFront(): Overflow error");
 
 	if (this->head == NULL) {
 
@@ -74,10 +75,9 @@ void Deque::AddRear(int item) {
 
 	else {
 
-		while (curr->next != NULL) { curr = curr->next; }
-
-		curr->next = node;
-
+		tail->next = node;
+		node->prev = tail;
+		tail = node;
 		this->noOfItems++;
 	}
 } //end-AddRear
@@ -87,8 +87,24 @@ void Deque::AddRear(int item) {
 /// If the Deque is empty, throw an exception
 /// 
 int Deque::RemoveFront() {
-	// Fill this in
-	return 0;
+
+	if (IsEmpty()) throw std::exception("Deque::RemoveFront(): Empty Deque");
+	else {
+
+		int item = this->head->item;
+
+		DequeNode* node = this->head;
+		this->head = this->head->next;
+	    
+		if (this->head == NULL)
+			this->tail = NULL; 
+		else
+			head->prev = NULL;
+
+		delete node;
+		this->noOfItems--;
+		return item;
+	}
 } //end-RemoveFront
 
 ///------------------------------------------------------
@@ -96,8 +112,21 @@ int Deque::RemoveFront() {
 /// If the Deque is empty, throw an exception
 /// 
 int Deque::RemoveRear() {
-	// Fill this in
-	return 0;
+	if (IsEmpty()) throw std::exception("Deque::RemoveRear(): Empty Deque");
+	else {
+
+		int item = tail->item;
+		DequeNode* node = tail;
+		tail = tail->prev;
+
+		if (tail == NULL) head = NULL;
+		else
+			tail->next = NULL;
+
+		delete node;
+		this->noOfItems--;
+		return item;
+	}
 } //end-RemoveRear
 
 ///------------------------------------------------------
@@ -106,11 +135,9 @@ int Deque::RemoveRear() {
 /// 
 int Deque::Front() {
 	
-	DequeNode* curr = head;
+	if (IsEmpty()) throw std::exception("Deque::Front(): Empty Deque");
 
-	if (curr == NULL) { return NULL; }
-
-	else return curr->item;
+	else return this->head->item;
 	
 } //end-Front
 
@@ -120,20 +147,9 @@ int Deque::Front() {
 /// 
 int Deque::Rear() {
 
-	DequeNode* curr;
-
-	curr = head;
+	if(IsEmpty()) throw std::exception("Deque::Rear(): Empty Deque");
 	
-	if (curr->next == NULL) {
-
-		return curr->item;
-	}
-
-	else {
-
-		while (curr->next != NULL) { curr = curr->next; }
-
-		return curr->item;
-	}
+	return tail->item;
 	
 } //end-Rear
+ 
