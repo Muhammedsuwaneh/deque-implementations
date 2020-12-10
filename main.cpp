@@ -14,7 +14,7 @@ int main() {
 	int grade = 0;
 
 	grade += Test1();
-	//grade += Test2();
+	grade += Test2();
 
 	printf("Your grade is: %d\n", grade);
 
