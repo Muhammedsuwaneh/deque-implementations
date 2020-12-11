@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 /*
   Algorithms and Data Structures
-  Expression Evaluations
+  Deque Implementations
   Contributors:
   Muhammed Suwaneh - 152120181098
   Department of Computer Engineering
@@ -65,7 +65,7 @@ void Deque::AddRear(int item) {
 
 	DequeNode* node = new DequeNode(item);
 
-	if (node == NULL) throw std::exception("Deque::AddFront(): Overflow error");
+	if (node == NULL) throw std::exception("Deque::AddRear(): Overflow error");
 
 	if (this->head == NULL) {
 
